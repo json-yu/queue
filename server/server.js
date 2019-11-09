@@ -1,29 +1,46 @@
 const express = require('express');
-const path = require('path');
 const app = express();
+const path = require('path');
 const bodyParser = require('body-parser');
 
 const dbRouter = require('./routes/dbRouter.js');
 const apiRouter = require('./routes/api');
 const geoRouter = require('./routes/geo');
 
-
 const PORT = 3000;
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+
+// When we have assets
+// app.use('/assets', express.static(path.join(__dirname, '../client/assets')));
 
 // Database calls
 app.use('/dbRouter', dbRouter);
 
 // Yelp API calls
-app.use('', apiRouter);
+app.use('/api', apiRouter);
 
 // Geolocation API calls
 app.use('/', geoRouter);
 
 
 app.use('/', (req, res) => res.status(200).sendFile(path.resolve(__dirname, '../src/index.html')))
+
+
+// 404 handler
+app.use('*', (req,res) => {
+  res.status(404).send('Not Found');
+});
+
+
+// Global error handler
+app.use((err, req, res, next) => {
+  console.log(err);
+  res.status(500).send('Internal Server Error');
+});
 
 
 app.listen(PORT, () => {

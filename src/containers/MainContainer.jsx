@@ -33,6 +33,12 @@ class MainContainer extends Component {
       homePage: false,
       categoryPage: true,
     })
+    fetch ('/api', {
+      method: 'post',
+      headers: {'Content-Type': 'application/json'}
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
   }
 
 
@@ -62,7 +68,6 @@ class MainContainer extends Component {
       </div>
     )
   }
-
 }
 
 export default MainContainer;

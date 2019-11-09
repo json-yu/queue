@@ -1,8 +1,10 @@
 const express = require('express');
-const apiRouter = express.Router();
-
+const router = express.Router();
 const apiController = require('../controllers/apiController');
 
-apiRouter.get('/')
+router.post('/', apiController.yelp, (req, res, next) => {
+  console.log('in the router')
+  res.sendStatus(200);
+});
 
-module.exports = apiRouter;
+module.exports = router;

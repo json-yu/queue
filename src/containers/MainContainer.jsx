@@ -9,6 +9,7 @@ class MainContainer extends Component {
       searchInput: '',
       location: '',
       searchResults: [],
+      waitTimes: [],
       homePage: true,
       categoryPage: false,
       venuePage: false,
@@ -55,10 +56,19 @@ class MainContainer extends Component {
       category = <CategoryContainer searchInput={this.state.searchInput} searchResults={this.state.searchResults}/>
     }
 
+    let venue = null;
+    if (this.state.venuePage) {
+      venue = 
+      <div>
+        <VenueContainer/>
+      </div>
+    }
+
     return (
       <div>
       {home}
       {category}
+      {venue}
       </div>
     )
   }

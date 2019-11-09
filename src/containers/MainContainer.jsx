@@ -1,25 +1,44 @@
 import React, { Component } from 'react';
-
+import CategoryContainer from './CategoryContainer.jsx';
 
 class MainContainer extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
+      searchInput: '',
       location: '',
-      business: '',
-      category: '',
+      searchResults: [],
       homePage: true,
       categoryPage: false,
       venuePage: false,
     }
 
-
-
+    this.setLocation = this.setLocation.bind(this);
+    this.setSearchInput = this.setSearchInput.bind(this);
+    this.search = this.search.bind(this);
   }
 
-  setLocation (event) {
+  setLocation(event) {
     this.setState({ location: event.target.value });
+  }
+
+  setSearchInput(event) {
+    this.setState({ searchInput: event.target.value });
+  }
+
+  search(event) {
+    console.log(event);
+    this.setState({ 
+      homePage: false,
+      categoryPage: true,
+    })
+    fetch ('/api', {
+      method: 'post',
+      headers: {'Content-Type': 'application/json'}
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
   }
 
 
@@ -31,18 +50,24 @@ class MainContainer extends Component {
         <div>
         Home Page
         </div>
-        <input type="input" id="location" placeHolder="Location" onChange={this.setLocation}/>
+        <input type="input" id="searchInput" placeholder="Business or Category" onChange={this.setSearchInput}/>
+        <input type="input" id="location" placeholder="Location" onChange={this.setLocation}/>
         <input type="button" id="searchButton" value="Search" onClick={this.search}/>
       </div>
+    }
+
+    let category = null;
+    if (this.state.categoryPage) {
+      category = <CategoryContainer searchInput={this.state.searchInput} searchResults={this.state.searchResults}/>
     }
 
     return (
       <div>
       {home}
+      {category}
       </div>
     )
   }
-
 }
 
 export default MainContainer;

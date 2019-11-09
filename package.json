@@ -9,7 +9,8 @@
     "pg": "^7.12.1",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
-    "react-scripts": "3.2.0"
+    "react-scripts": "3.2.0",
+    "yelp-api": "^1.0.3"
   },
   "scripts": {
     "start": "nodemon server/server.js",

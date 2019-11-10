@@ -9,7 +9,7 @@ class MainContainer extends Component {
     this.state = {
       searchInput: '',
       location: '',
-      searchResults: [{id: '4', name: 'hello'}, {id: '5', name: 'hello'}, {id: '6', name: 'hello'}],
+      searchResults: [{id: 'test', name: 'hello'}, {id: '5', name: 'hello'}, {id: '6', name: 'hello'}],
       waitTime: 0,
       venueId: '',
       venueName: 'test',

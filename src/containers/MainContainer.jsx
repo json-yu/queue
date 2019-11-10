@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import CategoryContainer from './CategoryContainer.jsx';
+<<<<<<< HEAD
 import VenueContainer from './VenueContainer.jsx';
+=======
+import axios from 'axios';
+>>>>>>> master
 
 class MainContainer extends Component {
   constructor(props) {
@@ -13,6 +17,8 @@ class MainContainer extends Component {
       waitTime: 0,
       venueId: '',
       venueName: 'test',
+      latitude: '',
+      longitude: '',
       homePage: true,
       categoryPage: false,
       venuePage: false,      
@@ -34,19 +40,26 @@ class MainContainer extends Component {
     this.setState({ searchInput: event.target.value });
   }
 
-  search(event) {
+  search() {
+    console.log('THIS STATE LOCATION : ', this.state.location);
     this.setState({ 
       homePage: false,
       categoryPage: true,
       venuePage: false,
     })
     fetch ('/api', {
-      method: 'post',
+      method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({location: this.state.location})
     })
-    .then(response => response.json())
-    .then(data => console.log(data))
+      .then(response => response.json())
+      .then(data => {
+        const parsedData = JSON.parse(data);
+        console.log(parsedData);
+        const firstBusinessLatitude = parsedData.businesses[0].coordinates.latitude;
+        const firstBusinessLongitude = parsedData.businesses[0].coordinates.longitude;
+        this.setState({ latitude: firstBusinessLatitude.toString(), longitude: firstBusinessLongitude.toString() })
+      })
   }
 
   setWaitTime(event) {
@@ -103,6 +116,7 @@ class MainContainer extends Component {
     if (this.state.categoryPage) {
       category = 
       <CategoryContainer 
+<<<<<<< HEAD
       searchInput={this.state.searchInput}
       location={this.state.location}
       searchResults={this.state.searchResults}
@@ -111,6 +125,18 @@ class MainContainer extends Component {
       categoryPage={this.state.categoryPage}
       venuePage={this.state.venuePage}   
       selectVenue={this.selectVenue}
+=======
+        searchInput={this.state.searchInput}
+        location={this.state.location}
+        searchResults={this.state.searchResults}
+        waitTimes={this.state.waitTimes}
+        homePage={this.state.homePage}
+        categoryPage={this.state.categoryPage}
+        venuePage={this.state.venuePage}   
+        selectVenue={this.selectVenue}
+        latitude={this.state.latitude}
+        longitude={this.state.longitude}
+>>>>>>> master
       />
     }
 

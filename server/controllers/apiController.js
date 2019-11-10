@@ -18,7 +18,7 @@ apiController.yelp = (req, res, next) => {
   yelp.query('businesses/search', params)
   .then(data => {
     // Success
-    console.log(data);
+    // console.log(data);
     return next();
   })
   .catch(err => {

@@ -35,8 +35,12 @@ class MainContainer extends Component {
     })
   }
 
+  addWaitTime(number) {
+    console.log(number);
+  }
 
   render() {
+    console.log("what's up");
     let home = null;
     if (this.state.homePage) {
       home = 

@@ -1,9 +1,10 @@
+require('dotenv').config()
 const express = require('express');
 const path = require('path');
 const app = express();
 const bodyParser = require('body-parser');
-const dbRouter = require('./routes/dbRouter.js');
 
+const dbRouter = require('./routes/dbRouter.js');
 const apiRouter = require('./routes/api');
 
 const PORT = 3000;

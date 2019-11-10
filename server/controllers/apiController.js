@@ -20,8 +20,8 @@ apiController.geolocation = (req, res, next) => {
 }
 
 apiController.yelp = (req, res, next) => {
-  console.log('REQ.BODY --> ', req.body);
-  console.log('in middleware func')
+  // console.log('REQ.BODY --> ', req.body);
+  // console.log('in middleware func')
   const YELP_API = '0asdq3RZT2Kcg24r5KLnY49GRgND03gI53KjmnXTaFEsPoe8YaSyyhVNciXqh2GGLrV1i7X79sBWjkWw_NhhMeG9GSOOylFrRXxnFSZuLxQvDj-5bOzL1JsZ-UbGXXYx';
   const ENDPOINT = 'https://api.yelp.com/v3/businesses/search';
 

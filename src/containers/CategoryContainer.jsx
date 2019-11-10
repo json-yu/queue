@@ -1,7 +1,6 @@
 import React from 'react';
 import SearchDisplay from '../components/SearchDisplay.jsx';
 import Map from '../components/Map.jsx';
-import VendorContainer from './VenueContainer.jsx';
 
 
 const CategoryContainer = (props) => {
@@ -10,8 +9,9 @@ const CategoryContainer = (props) => {
   let searchDisplayResults = props.searchResults.map((element, i) => {
     // console.log('search results', props.searchResults);
     return <li key = {i}>
-      {element}
-      <button onClick={props.selectVenue}>Select</button>
+      {element.id}
+      {/* // need to grab the unique id provided from the yelp api data search results that are saved in state. need to use it to save into our database */}
+      <button onClick={() => props.selectVenue(element.id, element.name)}>Select</button>
     </li>
   })
 
@@ -26,15 +26,9 @@ const CategoryContainer = (props) => {
     </div>
   }
 
-  let vendor = null;
-  if (props.vendorPage) {
-    vendor = <VendorContainer/>
-  }
-
   return (
     <div>
       {search}
-      {vendor}
     </div>
   )
 }

@@ -35,12 +35,13 @@ class MainContainer extends Component {
       categoryPage: true,
       venuePage: false,
     })
-    // fetch ('/api', {
-    //   method: 'post',
-    //   headers: {'Content-Type': 'application/json'}
-    // })
-    // .then(response => response.json())
-    // .then(data => console.log(data))
+    fetch ('/api', {
+      method: 'post',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({location: this.state.location})
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
   }
 
   selectVenue() {

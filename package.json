@@ -12,9 +12,9 @@
     "react-scripts": "3.2.0"
   },
   "scripts": {
-    "start": "nodemon server/server.js",
-    "build": "webpack",
-    "dev": "nodemon server/server.js & webpack-dev-server --open"
+    "start": "cross-env NODE_ENV=production node server/server.js",
+    "build": "cross-env NODE_ENV=production webpack",
+    "dev": "concurrently \" cross-env NODE_ENV=development webpack-dev-server --open \" \" nodemon server/server.js \""
   },
   "eslintConfig": {
     "extends": "react-app"

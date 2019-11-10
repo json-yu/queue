@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   mode: 'development',
@@ -8,12 +9,14 @@ module.exports = {
     path: path.resolve(__dirname, './build/')
   },
   devServer: {
-    publicPath: '/build',
-    compress: true,
+    publicPath: 'http://localhost:8080/build',
     port: 8080,
     proxy: {
-      '/': 'http://localhost:3000'
-    }
+        '/': {
+          target: 'http://localhost:3000/',
+          secure: false,
+        }
+      },
   },
   module: {
     rules: [

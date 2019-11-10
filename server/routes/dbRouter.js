@@ -7,8 +7,8 @@ router.get('/getWaitTimes', dbController.getWaitTimes, (req, res) => {
     res.sendStatus(200);
 })
 
-router.post('/addWaitTime', dbController.addVenue, (req, res) => {
-    console.log('successfully stored wait time')
+router.post('/addWaitTime', dbController.addVenue, dbController.addWaitTime, (req, res) => {
+    console.log('successfully added venue and stored wait time')
     res.sendStatus(200);
 })
 

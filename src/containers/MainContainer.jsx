@@ -9,7 +9,7 @@ class MainContainer extends Component {
     this.state = {
       searchInput: '',
       location: '',
-      searchResults: [{id: '1', name: 'hello'}, {id: '2', name: 'hello'}, {id: '3', name: 'hello'}],
+      searchResults: [{id: '4', name: 'hello'}, {id: '5', name: 'hello'}, {id: '6', name: 'hello'}],
       waitTime: 0,
       venueId: '',
       venueName: 'test',
@@ -50,27 +50,22 @@ class MainContainer extends Component {
   }
 
   setWaitTime(event) {
-    console.log(event.target.value);
     this.setState({ waitTime: event.target.value })
   }
 
   addWaitTime() {
-    // console.log(typeof number); // returns string
-    console.log(this.state.waitTime);
-
     // create body from the things we've saved in state through the setwaittime and from selecting a specific venue
     const body = {
       waitTime: this.state.waitTime,
       venueId: this.state.venueId,
       venueName: this.state.venueName,
     }
-    console.log(body);
+    // console.log(body);
     fetch('/dbRouter/addWaitTime', {
       method: 'POST',
       body: JSON.stringify(body),
       headers: {'Content-Type': 'application/json'}
     })
-    .then(resp => resp.json())
     .then(() => console.log('addwaittime fetch request successful'))
     .catch((err) => {
       console.log(`${err}: addWaitTime func err when adding wait time`)

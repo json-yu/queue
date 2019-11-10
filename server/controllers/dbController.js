@@ -1,4 +1,4 @@
-const models = require('../models/models.js');
+const db = require('../models/models.js');
 
 const dbController = {};
 
@@ -7,20 +7,16 @@ dbController.getWaitTimes = (req, res, next) => {
 }
 
 dbController.addVenue = async (req, res, next) => {
-    console.log(req.body);
-    // const { venueId, venueName } = req.body;
-    // const waitTime = parseInt(req.body.WaitTime);
-    // console.log(waitTime);
+    const { venueId, venueName } = req.body;
+
     try {
-        const text = `
+        const queryStr = `
         INSERT INTO venues (VenueID, venue)
         VALUES ($1, $2)
         RETURNING *
         `;
         // const params = [ req.body.venueId, req.body.venueName ];
-        const result = await db.query(text, [ req.body.venueId, req.body.venueName ]);
-        res.locals.results = result.rows[0];
-        console.log(res.locals.results);
+        const result = await db.query(queryStr, [ venueId, venueName ]);
         return next();
     }
     catch (err) {

@@ -8,7 +8,7 @@ class MainContainer extends Component {
     this.state = {
       searchInput: '',
       location: '',
-      searchResults: [],
+      searchResults: ['test'],
       homePage: true,
       categoryPage: false,
       venuePage: false,
@@ -25,10 +25,12 @@ class MainContainer extends Component {
 
   setSearchInput(event) {
     this.setState({ searchInput: event.target.value });
+    console.log(this.state.searchResults)
   }
 
   search(event) {
     console.log(event);
+    console.log(this.state.searchResults);
     this.setState({ 
       homePage: false,
       categoryPage: true,
@@ -40,7 +42,6 @@ class MainContainer extends Component {
     .then(response => response.json())
     .then(data => console.log(data))
   }
-
 
   render() {
     let home = null;

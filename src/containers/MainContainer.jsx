@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import CategoryContainer from './CategoryContainer.jsx';
-<<<<<<< HEAD
-import VenueContainer from './VenueContainer.jsx';
-=======
 import axios from 'axios';
->>>>>>> master
 
 class MainContainer extends Component {
   constructor(props) {
@@ -116,16 +112,6 @@ class MainContainer extends Component {
     if (this.state.categoryPage) {
       category = 
       <CategoryContainer 
-<<<<<<< HEAD
-      searchInput={this.state.searchInput}
-      location={this.state.location}
-      searchResults={this.state.searchResults}
-      waitTimes={this.state.waitTimes}
-      homePage={this.state.homePage}
-      categoryPage={this.state.categoryPage}
-      venuePage={this.state.venuePage}   
-      selectVenue={this.selectVenue}
-=======
         searchInput={this.state.searchInput}
         location={this.state.location}
         searchResults={this.state.searchResults}
@@ -136,7 +122,6 @@ class MainContainer extends Component {
         selectVenue={this.selectVenue}
         latitude={this.state.latitude}
         longitude={this.state.longitude}
->>>>>>> master
       />
     }
 

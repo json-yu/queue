@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import CategoryContainer from './CategoryContainer.jsx';
+import axios from 'axios';
 
 class MainContainer extends Component {
   constructor(props) {
@@ -8,6 +9,8 @@ class MainContainer extends Component {
     this.state = {
       searchInput: '',
       location: '',
+      latitude: '',
+      longitude: '',
       searchResults: [1, 2, 3],
       waitTimes: [],
       homePage: true,
@@ -29,19 +32,26 @@ class MainContainer extends Component {
     this.setState({ searchInput: event.target.value });
   }
 
-  search(event) {
+  search() {
+    console.log('THIS STATE LOCATION : ', this.state.location);
     this.setState({ 
       homePage: false,
       categoryPage: true,
       venuePage: false,
     })
     fetch ('/api', {
-      method: 'post',
+      method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({location: this.state.location})
     })
-    .then(response => response.json())
-    .then(data => console.log(data))
+      .then(response => response.json())
+      .then(data => {
+        const parsedData = JSON.parse(data);
+        console.log(parsedData);
+        const firstBusinessLatitude = parsedData.businesses[0].coordinates.latitude;
+        const firstBusinessLongitude = parsedData.businesses[0].coordinates.longitude;
+        this.setState({ latitude: firstBusinessLatitude.toString(), longitude: firstBusinessLongitude.toString() })
+      })
   }
 
   selectVenue() {
@@ -77,6 +87,8 @@ class MainContainer extends Component {
         categoryPage={this.state.categoryPage}
         venuePage={this.state.venuePage}   
         selectVenue={this.selectVenue}
+        latitude={this.state.latitude}
+        longitude={this.state.longitude}
       />
     }
 

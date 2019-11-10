@@ -22,7 +22,7 @@ const CategoryContainer = (props) => {
       <SearchDisplay
         searchDisplayResults={searchDisplayResults}
       />
-      <Map/>
+      <Map latitude={props.latitude} longitude={props.longitude} />
     </div>
   }
 

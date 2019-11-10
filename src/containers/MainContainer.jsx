@@ -35,7 +35,8 @@ class MainContainer extends Component {
     })
     fetch ('/api', {
       method: 'post',
-      headers: {'Content-Type': 'application/json'}
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({location: this.state.location})
     })
     .then(response => response.json())
     .then(data => console.log(data))

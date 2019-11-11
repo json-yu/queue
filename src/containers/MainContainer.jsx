@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import CategoryContainer from './CategoryContainer.jsx';
-import debounce from "lodash.debounce";
-import axios from 'axios';
-import VenueContainer from './VenueContainer.jsx'
+import VenueContainer from './VenueContainer.jsx';
 
 class MainContainer extends Component {
   constructor(props) {
@@ -15,13 +13,15 @@ class MainContainer extends Component {
       // searchResults: [],
       waitTime: 0,
       venueId: '',
-      venueName: 'test',
+      venueName: '',
+      venueUrl: '',
+      venueImage: '',
+      venueLocation: '',
       latitude: '',
       longitude: '',
       homePage: true,
       categoryPage: false,
       venuePage: false,
-
       searchResults: [],
       current: 10,
       total: 50,
@@ -33,8 +33,6 @@ class MainContainer extends Component {
     this.selectVenue = this.selectVenue.bind(this);
     this.setWaitTime = this.setWaitTime.bind(this);
     this.addWaitTime = this.addWaitTime.bind(this);
-
-  
   }
 
   setLocation(event) {
@@ -50,11 +48,7 @@ class MainContainer extends Component {
     if (this.state.current >= this.state.total) return;
 
     console.log('THIS STATE LOCATION : ', this.state.location);
-    this.setState({ 
-      homePage: false,
-      categoryPage: true,
-      venuePage: false,
-    })
+    
     fetch ('/api', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -71,7 +65,13 @@ class MainContainer extends Component {
         const listOfBusinesses = [];
         console.log(parsedData.businesses.length)
         for (let i = 0; i < this.state.current; i += 1) {
-          listOfBusinesses.push({id: parsedData.businesses[i].id, name: parsedData.businesses[i].name});
+          listOfBusinesses.push({
+            id: parsedData.businesses[i].id, 
+            name: parsedData.businesses[i].name, 
+            image: parsedData.businesses[i].image_url, 
+            location: parsedData.businesses[i].location,
+            category: parsedData.businesses[i].categories[0].title,
+          });
         }
 
         // this.setState({ latitude: firstBusinessLatitude.toString(), longitude: firstBusinessLongitude.toString() })
@@ -85,6 +85,12 @@ class MainContainer extends Component {
           }
         })
       })
+
+      this.setState({ 
+      homePage: false,
+      categoryPage: true,
+      venuePage: false,
+    })
   }
 
   setWaitTime(event) {
@@ -110,15 +116,22 @@ class MainContainer extends Component {
     })
   }
   
-  selectVenue(id, name) {
+  selectVenue(id, name, url, image, location) {
     const venueId = id;
     const venueName = name;
+    const venueUrl = url;
+    const venueImage = image;
+    const venueLocation = location;
+    
     this.setState({ 
       homePage: false,
       categoryPage: false,
       venuePage: true,
       venueId,
       venueName,
+      venueUrl,
+      venueImage,
+      venueLocation,
     })
   }
 
@@ -160,8 +173,13 @@ class MainContainer extends Component {
   if (this.state.venuePage) {
     venue = 
     <VenueContainer
-      setWaitTime = {this.setWaitTime}
-      addWaitTime = {this.addWaitTime}
+      venueId={this.state.venueId}
+      venueName={this.state.venueName}
+      venueUrl={this.state.venueUrl}
+      venueImage={this.state.venueImage}
+      venueLocation={this.state.venueLocation}
+      setWaitTime={this.setWaitTime}
+      addWaitTime={this.addWaitTime}
     />
   }
     

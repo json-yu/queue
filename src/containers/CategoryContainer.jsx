@@ -3,7 +3,6 @@ import SearchDisplay from '../components/SearchDisplay.jsx';
 import Map from '../components/Map.jsx';
 import debounce from "lodash.debounce";
 
-
 class CategoryContainer extends Component {
   constructor(props) {
     super(props);
@@ -31,14 +30,21 @@ class CategoryContainer extends Component {
     // console.log('search results', props.searchResults);
     return <li className="list-item" key = {i}>
       {element.name}
+      <div>
+        {element.category}
+        {element.location.address1}
+        {element.location.address2}
+        {element.location.city}
+        {element.location.state}
+        {element.location.zip_code}
+      </div>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
       {/* // need to grab the unique id provided from the yelp api data search results that are saved in state. need to use it to save into our database */}
-      <button onClick={() => this.props.selectVenue(element.id, element.name)}>Select</button>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
+      <button onClick={() => this.props.selectVenue(element.id, element.name, element.url, element.image, element.location)}>Select</button>
     </li>
   })
 

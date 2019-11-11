@@ -31,6 +31,9 @@ h1 {
   color: white;
   padding: .3rem 3.5rem;
   text-shadow: -4px 0 black, 0 4px black, 4px 0 black, 0 -4px black;
+  /* background: linear-gradient(to right, #20f5e3 0%, #000 180%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; */
 }
 
 .inputs {
@@ -42,7 +45,7 @@ h1 {
 input {
   padding: 2rem;
   outline: none;
-  border: none;
+  border: 1px solid gray;
   border-radius: 40px;
   margin: 1rem;
   height: 5rem;

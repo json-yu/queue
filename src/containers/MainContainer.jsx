@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CategoryContainer from './CategoryContainer.jsx';
 import '../css/LandingPage.css';
+import VenueContainer from './VenueContainer.jsx';
 
 class MainContainer extends Component {
   constructor(props) {
@@ -9,15 +10,22 @@ class MainContainer extends Component {
     this.state = {
       searchInput: '',
       location: '',
-      searchResults: [{id: 'test', name: 'hello'}, {id: '5', name: 'hello'}, {id: '6', name: 'hello'}],
+      // searchResults: [{id: 'test', name: 'hello'}, {id: '5', name: 'hello'}, {id: '6', name: 'hello'}],
+      // searchResults: [],
       waitTime: 0,
       venueId: '',
-      venueName: 'test',
+      venueName: '',
+      venueUrl: '',
+      venueImage: '',
+      venueLocation: '',
       latitude: '',
       longitude: '',
       homePage: true,
       categoryPage: false,
-      venuePage: false,      
+      venuePage: false,
+      searchResults: [],
+      current: 10,
+      total: 50,
     }
 
     this.setLocation = this.setLocation.bind(this);
@@ -34,15 +42,14 @@ class MainContainer extends Component {
 
   setSearchInput(event) {
     this.setState({ searchInput: event.target.value });
+    console.log(this.state.searchResults)
   }
 
   search() {
+    if (this.state.current >= this.state.total) return;
+
     console.log('THIS STATE LOCATION : ', this.state.location);
-    this.setState({ 
-      homePage: false,
-      categoryPage: true,
-      venuePage: false,
-    })
+    
     fetch ('/api', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -51,11 +58,40 @@ class MainContainer extends Component {
       .then(response => response.json())
       .then(data => {
         const parsedData = JSON.parse(data);
-        console.log(parsedData);
+        console.log('PARSEDDATA: ', parsedData);
+        console.log('introspecting the data: ', parsedData.businesses[0])
         const firstBusinessLatitude = parsedData.businesses[0].coordinates.latitude;
         const firstBusinessLongitude = parsedData.businesses[0].coordinates.longitude;
-        this.setState({ latitude: firstBusinessLatitude.toString(), longitude: firstBusinessLongitude.toString() })
+        
+        const listOfBusinesses = [];
+        console.log(parsedData.businesses.length)
+        for (let i = 0; i < this.state.current; i += 1) {
+          listOfBusinesses.push({
+            id: parsedData.businesses[i].id, 
+            name: parsedData.businesses[i].name, 
+            image: parsedData.businesses[i].image_url, 
+            location: parsedData.businesses[i].location,
+            category: parsedData.businesses[i].categories[0].title,
+          });
+        }
+
+        // this.setState({ latitude: firstBusinessLatitude.toString(), longitude: firstBusinessLongitude.toString() })
+
+        this.setState(state => {
+          return {
+            latitude: firstBusinessLatitude.toString(),
+            longitude: firstBusinessLongitude.toString(),
+            searchResults: listOfBusinesses,
+            current: state.current + 10
+          }
+        })
       })
+
+      this.setState({ 
+      homePage: false,
+      categoryPage: true,
+      venuePage: false,
+    })
   }
 
   setWaitTime(event) {
@@ -81,15 +117,22 @@ class MainContainer extends Component {
     })
   }
   
-  selectVenue(id, name) {
+  selectVenue(id, name, url, image, location) {
     const venueId = id;
     const venueName = name;
+    const venueUrl = url;
+    const venueImage = image;
+    const venueLocation = location;
+    
     this.setState({ 
       homePage: false,
       categoryPage: false,
       venuePage: true,
       venueId,
       venueName,
+      venueUrl,
+      venueImage,
+      venueLocation,
     })
   }
 
@@ -125,6 +168,7 @@ class MainContainer extends Component {
         selectVenue={this.selectVenue}
         latitude={this.state.latitude}
         longitude={this.state.longitude}
+        search={this.search}
       />
     }
 
@@ -133,8 +177,13 @@ class MainContainer extends Component {
   if (this.state.venuePage) {
     venue = 
     <VenueContainer
-      setWaitTime = {this.setWaitTime}
-      addWaitTime = {this.addWaitTime}
+      venueId={this.state.venueId}
+      venueName={this.state.venueName}
+      venueUrl={this.state.venueUrl}
+      venueImage={this.state.venueImage}
+      venueLocation={this.state.venueLocation}
+      setWaitTime={this.setWaitTime}
+      addWaitTime={this.addWaitTime}
     />
   }
     
@@ -149,4 +198,3 @@ class MainContainer extends Component {
 }
 
 export default MainContainer;
-

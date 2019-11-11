@@ -8,6 +8,9 @@ const VenueContainer = (props) => {
     <div>
       <VenueDetails
         venueName = { props.venueName }
+        venueUrl = { props.venueUrl }
+        venueImage = { props.venueImage }
+        venueLocation = { props.venueLocation }
       />
       <WaitTimesDisplay 
         addWaitTime = { props.addWaitTime }

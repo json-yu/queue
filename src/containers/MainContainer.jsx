@@ -10,10 +10,16 @@ class MainContainer extends Component {
     this.state = {
       searchInput: '',
       location: '',
-      searchResults: [{id: 'test', name: 'hello'}, {id: '5', name: 'hello'}, {id: '6', name: 'hello'}],
+      searchResults: [{id: 'testID1', name: '85 C Bakery', url: "https://www.yelp.com/biz/hironori-craft-ramen-irvine-irvine?adjust_creative=H1bH90ZvaxqOkwtYtJapbA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=H1bH90ZvaxqOkwtYtJapbA",
+      image: "https://s3-media4.fl.yelpcdn.com/bphoto/D7UcJNaajaqXkQDJgey2ug/o.jpg", location: {address1: "2222 Michelson Dr", city: "Irvine", state: "CA", zip_code: "92612"}}, {id: 'testID2', name: '85 C Bakery', url: "https://www.yelp.com/biz/hironori-craft-ramen-irvine-irvine?adjust_creative=H1bH90ZvaxqOkwtYtJapbA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=H1bH90ZvaxqOkwtYtJapbA",
+      image: "https://s3-media4.fl.yelpcdn.com/bphoto/D7UcJNaajaqXkQDJgey2ug/o.jpg"}, {id: 'testID3', name: '85 C Bakery', url: "https://www.yelp.com/biz/hironori-craft-ramen-irvine-irvine?adjust_creative=H1bH90ZvaxqOkwtYtJapbA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=H1bH90ZvaxqOkwtYtJapbA",
+      image: "https://s3-media4.fl.yelpcdn.com/bphoto/D7UcJNaajaqXkQDJgey2ug/o.jpg"}],
       waitTime: 0,
       venueId: '',
       venueName: '',
+      venueUrl: '',
+      venueImage: '',
+      venueLocation: '',
       latitude: '',
       longitude: '',
       homePage: true,
@@ -82,15 +88,21 @@ class MainContainer extends Component {
     })
   }
   
-  selectVenue(id, name) {
+  selectVenue(id, name, url, image, location) {
     const venueId = id;
     const venueName = name;
+    const venueUrl = url;
+    const venueImage = image;
+    const venueLocation = location;
     this.setState({ 
       homePage: false,
       categoryPage: false,
       venuePage: true,
       venueId,
       venueName,
+      venueUrl,
+      venueImage,
+      venueLocation,
     })
   }
 
@@ -133,6 +145,9 @@ class MainContainer extends Component {
     <VenueContainer
       venueId={this.state.venueId}
       venueName={this.state.venueName}
+      venueUrl={this.state.venueUrl}
+      venueImage={this.state.venueImage}
+      venueLocation={this.state.venueLocation}
       setWaitTime={this.setWaitTime}
       addWaitTime={this.addWaitTime}
     />

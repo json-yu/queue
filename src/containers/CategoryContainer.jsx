@@ -11,7 +11,7 @@ const CategoryContainer = (props) => {
     return <li key = {i}>
       {element.id}
       {/* // need to grab the unique id provided from the yelp api data search results that are saved in state. need to use it to save into our database */}
-      <button onClick={() => props.selectVenue(element.id, element.name)}>Select</button>
+      <button onClick={() => props.selectVenue(element.id, element.name, element.url, element.image, element.location)}>Select</button>
     </li>
   })
 

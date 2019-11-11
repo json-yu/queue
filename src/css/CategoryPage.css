@@ -21,3 +21,7 @@ body {
   -o-background-size: cover;
   background-size: cover;
 }
+.search-bar {
+  display: flex;
+  justify-content: center;
+}

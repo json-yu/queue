@@ -40,7 +40,7 @@ h1 {
   -webkit-text-fill-color: transparent; */
 }
 
-.inputs {
+#home-page-search-bar {
   display: flex;
   justify-content: center;
 }

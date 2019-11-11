@@ -11,10 +11,6 @@ class MainContainer extends Component {
     this.state = {
       searchInput: '',
       location: '',
-      // searchResults: [{id: 'testID1', name: '85 C Bakery', url: "https://www.yelp.com/biz/hironori-craft-ramen-irvine-irvine?adjust_creative=H1bH90ZvaxqOkwtYtJapbA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=H1bH90ZvaxqOkwtYtJapbA",
-      // image: "https://s3-media4.fl.yelpcdn.com/bphoto/D7UcJNaajaqXkQDJgey2ug/o.jpg", location: {address1: "2222 Michelson Dr", city: "Irvine", state: "CA", zip_code: "92612"}}, {id: 'testID2', name: '85 C Bakery', url: "https://www.yelp.com/biz/hironori-craft-ramen-irvine-irvine?adjust_creative=H1bH90ZvaxqOkwtYtJapbA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=H1bH90ZvaxqOkwtYtJapbA",
-      // image: "https://s3-media4.fl.yelpcdn.com/bphoto/D7UcJNaajaqXkQDJgey2ug/o.jpg"}, {id: 'testID3', name: '85 C Bakery', url: "https://www.yelp.com/biz/hironori-craft-ramen-irvine-irvine?adjust_creative=H1bH90ZvaxqOkwtYtJapbA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=H1bH90ZvaxqOkwtYtJapbA",
-      // image: "https://s3-media4.fl.yelpcdn.com/bphoto/D7UcJNaajaqXkQDJgey2ug/o.jpg"}],
       // searchResults: [{id: 'test', name: 'hello'}, {id: '5', name: 'hello'}, {id: '6', name: 'hello'}],
       // searchResults: [],
       waitTime: 0,

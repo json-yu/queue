@@ -47,7 +47,7 @@ class WaitTimesDisplay extends Component {
     this.updateWaitList();
   }
   
-
+  
   render() {
     return ( 
       <div>

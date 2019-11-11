@@ -13,6 +13,7 @@ const VenueDetails = (props) => {
               {props.venueLocation.city}
               {props.venueLocation.state}
               {props.venueLocation.zip_code}
+              {props.venuePhone}
               {props.venueUrl}
             </div>
         </div>

@@ -23,7 +23,9 @@ class MainContainer extends Component {
       venueUrl: '',
       venueImage: '',
       venueLocation: '',
+      venuePhone: '',
       waitTime: 0,
+      venueWaitTimeList: [],
 
       // components for infinite scrolling functionality
       current: 15,
@@ -77,8 +79,10 @@ class MainContainer extends Component {
             id: parsedData.businesses[i].id, 
             name: parsedData.businesses[i].name, 
             image: parsedData.businesses[i].image_url, 
+            url: parsedData.businesses[i].url, 
             location: parsedData.businesses[i].location,
             category: parsedData.businesses[i].categories[0].title,
+            phone: parsedData.businesses[i].phone,
           });
         }
 
@@ -102,12 +106,13 @@ class MainContainer extends Component {
   }
 
   // specific venue selection functions
-  selectVenue(id, name, url, image, location) {
+  selectVenue(id, name, url, image, location, phone) {
     const venueId = id;
     const venueName = name;
     const venueUrl = url;
     const venueImage = image;
     const venueLocation = location;
+    const venuePhone = phone;
 
     this.setState({ 
       homePage: false,
@@ -118,6 +123,7 @@ class MainContainer extends Component {
       venueUrl,
       venueImage,
       venueLocation,
+      venuePhone,
     })
   }
   setWaitTime(event) {
@@ -208,6 +214,8 @@ class MainContainer extends Component {
       venueUrl={this.state.venueUrl}
       venueImage={this.state.venueImage}
       venueLocation={this.state.venueLocation}
+      venuePhone={this.state.venuePhone}
+      venueWaitTimeList={this.state.venueWaitTimeList}
       setWaitTime={this.setWaitTime}
       addWaitTime={this.addWaitTime}
 

@@ -74,6 +74,7 @@ dbController.getWaitTimes = async (req, res, next) => {
       SELECT WaitTime
       FROM waittimes
       WHERE VenueId='${venueId}'
+      ORDER BY WaitTimeId DESC
       LIMIT 5
       `;
       const result = await db.query(queryStr);

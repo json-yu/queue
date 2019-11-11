@@ -7,45 +7,52 @@ class MainContainer extends Component {
     super(props)
 
     this.state = {
-      searchInput: '',
+      // stateful components for search bar and results
       location: '',
-      // searchResults: [{id: 'test', name: 'hello'}, {id: '5', name: 'hello'}, {id: '6', name: 'hello'}],
-      // searchResults: [],
-      waitTime: 0,
+      searchInput: '',
+      searchResults: [],
+      
+      // stateful components for map display
+      latitude: '',
+      longitude: '',
+
+      // components related to selecting specific venue
       venueId: '',
       venueName: '',
       venueUrl: '',
       venueImage: '',
       venueLocation: '',
-      latitude: '',
-      longitude: '',
+      waitTime: 0,
+
+      // components for infinite scrolling functionality
+      current: 15,
+      total: 50,
+      
+      // components for conditional rendering of containers
       homePage: true,
       categoryPage: false,
       venuePage: false,
-      searchResults: [],
-      current: 10,
-      total: 50,
     }
 
     this.setLocation = this.setLocation.bind(this);
     this.setSearchInput = this.setSearchInput.bind(this);
     this.search = this.search.bind(this);
+
     this.selectVenue = this.selectVenue.bind(this);
     this.setWaitTime = this.setWaitTime.bind(this);
     this.addWaitTime = this.addWaitTime.bind(this);
   }
 
+  // search bar functions
   setLocation(event) {
     this.setState({ location: event.target.value });
   }
-
   setSearchInput(event) {
     this.setState({ searchInput: event.target.value });
     console.log(this.state.searchResults)
   }
-
   search() {
-    if (this.state.current >= this.state.total) return;
+    // if (this.state.current >= this.state.total) return;
 
     console.log('THIS STATE LOCATION : ', this.state.location);
     
@@ -54,7 +61,7 @@ class MainContainer extends Component {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({location: this.state.location})
     })
-      .then(response => response.json())
+      .then(response => response.json())  
       .then(data => {
         const parsedData = JSON.parse(data);
         console.log('PARSEDDATA: ', parsedData);
@@ -86,17 +93,35 @@ class MainContainer extends Component {
         })
       })
 
-      this.setState({ 
+    this.setState({ 
       homePage: false,
       categoryPage: true,
       venuePage: false,
     })
   }
 
+  // specific venue selection functions
+  selectVenue(id, name, url, image, location) {
+    const venueId = id;
+    const venueName = name;
+    const venueUrl = url;
+    const venueImage = image;
+    const venueLocation = location;
+
+    this.setState({ 
+      homePage: false,
+      categoryPage: false,
+      venuePage: true,
+      venueId,
+      venueName,
+      venueUrl,
+      venueImage,
+      venueLocation,
+    })
+  }
   setWaitTime(event) {
     this.setState({ waitTime: event.target.value })
   }
-
   addWaitTime() {
     // create body from the things we've saved in state through the setwaittime and from selecting a specific venue
     const body = {
@@ -115,25 +140,6 @@ class MainContainer extends Component {
       console.log(`${err}: addWaitTime func err when adding wait time`)
     })
   }
-  
-  selectVenue(id, name, url, image, location) {
-    const venueId = id;
-    const venueName = name;
-    const venueUrl = url;
-    const venueImage = image;
-    const venueLocation = location;
-    
-    this.setState({ 
-      homePage: false,
-      categoryPage: false,
-      venuePage: true,
-      venueId,
-      venueName,
-      venueUrl,
-      venueImage,
-      venueLocation,
-    })
-  }
 
   render() {
     // conditional rendering for the homepage; default true (shows first)
@@ -144,35 +150,55 @@ class MainContainer extends Component {
         <div>
         Home Page
         </div>
-        <input type="input" id="searchInput" placeholder="Business or Category" onChange={this.setSearchInput}/>
-        <input type="input" id="location" placeholder="Location" onChange={this.setLocation}/>
-        <input type="button" id="searchButton" value="Search" onClick={this.search}/>
+        <section id="home-page-search-bar">
+          <input type="input" id="searchInput" placeholder="Business or Category" onChange={this.setSearchInput}/>
+          <input type="input" id="location" placeholder="Location" onChange={this.setLocation}/>
+          <input type="button" id="searchButton" value="Search" onClick={this.search}/>
+        </section>
       </div>
     }
 
+    // conditional rendering for the category page
     let category = null;
     if (this.state.categoryPage) {
       category = 
       <CategoryContainer 
+        // props for search bar
+        setSearchInput = {this.setSearchInput}
+        setLocation = {this.setLocation}
+        search = {this.search}
+
         searchInput={this.state.searchInput}
         location={this.state.location}
         searchResults={this.state.searchResults}
+
+        selectVenue={this.selectVenue}
         waitTimes={this.state.waitTimes}
+
+        latitude={this.state.latitude}
+        longitude={this.state.longitude}
+
         homePage={this.state.homePage}
         categoryPage={this.state.categoryPage}
         venuePage={this.state.venuePage}   
-        selectVenue={this.selectVenue}
-        latitude={this.state.latitude}
-        longitude={this.state.longitude}
-        search={this.search}
       />
     }
 
-    // conditional render of the vendor page
+    // conditional rendering for the vendor page
   let venue = null;
   if (this.state.venuePage) {
     venue = 
     <VenueContainer
+      // props for search bar
+      setSearchInput = {this.setSearchInput}
+      setLocation = {this.setLocation}
+      search = {this.search}
+
+      searchInput={this.state.searchInput}
+      location={this.state.location}
+      searchResults={this.state.searchResults}
+
+      // props for venue selection
       venueId={this.state.venueId}
       venueName={this.state.venueName}
       venueUrl={this.state.venueUrl}
@@ -180,6 +206,10 @@ class MainContainer extends Component {
       venueLocation={this.state.venueLocation}
       setWaitTime={this.setWaitTime}
       addWaitTime={this.addWaitTime}
+
+      homePage={this.state.homePage}
+      categoryPage={this.state.categoryPage}
+      venuePage={this.state.venuePage} 
     />
   }
     

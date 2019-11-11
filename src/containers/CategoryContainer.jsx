@@ -7,19 +7,19 @@ class CategoryContainer extends Component {
   constructor(props) {
     super(props);
     
-    // if (this.props.categoryPage) {
-    //   window.onscroll = debounce(() => {
-    //     this.props.search();
+    if (this.props.categoryPage) {
+      window.onscroll = debounce(() => {
+        this.props.search();
     
-    //     if (
-    //       window.innerHeight + document.documentElement.scrollTop
-    //       === document.documentElement.offsetHeight
-    //     ) {
-    //       // load function should be invoked here
-    //       // this.search();
-    //     }
-    //   });
-    // }
+        if (
+          window.innerHeight + document.documentElement.scrollTop
+          === document.documentElement.offsetHeight
+        ) {
+          // load function should be invoked here
+          // this.search();
+        }
+      });
+    }
   }
 
   render() { 

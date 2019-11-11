@@ -52,7 +52,7 @@ class MainContainer extends Component {
     console.log(this.state.searchResults)
   }
   search() {
-    // if (this.state.current >= this.state.total) return;
+    if (this.state.current >= this.state.total) return;
 
     console.log('THIS STATE LOCATION : ', this.state.location);
     

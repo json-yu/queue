@@ -22,11 +22,11 @@ class WaitTimesDisplay extends Component {
     })
     .then(res => res.json())
     .then(data => {
-      console.log(data)
+      // console.log(data)
       const waitTimes = [];
       for (let i = 0; i <= data.length; i++) {
         if (data[i]) {
-          waitTimes.push(<div key={i}>{data[i]["waittime"]}</div>)
+          waitTimes.push(<div key={i}>{data[i]["waittime"]} minutes</div>)
         }
       }
       this.setState({

@@ -14,19 +14,10 @@ class CategoryContainer extends Component {
 
         if (this.props.current >= 50) return;
 
-        // else if (this.props.current < 50) {
-        //   this.props.search();
-        // }
-    
-        if (
-          window.innerHeight + document.documentElement.scrollTop
-          === document.documentElement.offsetHeight
-        ) {
+        if (document.documentElement.scrollTop > document.documentElement.scrollHeight - window.innerHeight - 2) {
           this.props.search();
-          // load function should be invoked here
-          // this.search();
         }
-      }, 10);
+      });
     }
   }
 

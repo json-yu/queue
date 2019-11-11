@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import CategoryContainer from './CategoryContainer.jsx';
+import '../css/LandingPage.css';
 import VenueContainer from './VenueContainer.jsx';
 
 class MainContainer extends Component {
@@ -145,22 +146,25 @@ class MainContainer extends Component {
     // conditional rendering for the homepage; default true (shows first)
     let home = null;
     if (this.state.homePage) {
+      document.body.style.background = "url('https://images.pexels.com/photos/1604200/pexels-photo-1604200.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260')";
       home = 
-      <div>
-        <div>
-        Home Page
+      <div id="home-content">
+        <div id="logo">
+          <h1><span id="Q">Queue</span></h1>
         </div>
         <section id="home-page-search-bar">
           <input type="input" id="searchInput" placeholder="Business or Category" onChange={this.setSearchInput}/>
           <input type="input" id="location" placeholder="Location" onChange={this.setLocation}/>
-          <input type="button" id="searchButton" value="Search" onClick={this.search}/>
+          <input type="button" id="searchButton" onClick={this.search}/>
         </section>
       </div>
+
     }
 
     // conditional rendering for the category page
     let category = null;
     if (this.state.categoryPage) {
+      document.body.style.background = "url('')";
       category = 
       <CategoryContainer 
         // props for search bar

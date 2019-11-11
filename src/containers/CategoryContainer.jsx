@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import SearchDisplay from '../components/SearchDisplay.jsx';
 import Map from '../components/Map.jsx';
 import debounce from "lodash.debounce";
+import '../css/CategoryPage.css';
 
 class CategoryContainer extends Component {
   constructor(props) {
@@ -58,7 +59,7 @@ class CategoryContainer extends Component {
         <section className="search-bar">
           <input type="input" id="searchInput" placeholder="Business or Category" onChange={ this.props.setSearchInput }/>
           <input type="input" id="location" placeholder="Location" onChange={ this.props.setLocation }/>
-          <input type="button" id="searchButton" value="Search" onClick={ this.props.search }/>
+          <input type="button" id="searchButton" onClick={ this.props.search }/>
         </section>
         {search}
     </div>

@@ -9,7 +9,7 @@ const VenueContainer = (props) => {
       <section className="search-bar">
           <input type="input" id="searchInput" placeholder="Business or Category" onChange={ props.setSearchInput }/>
           <input type="input" id="location" placeholder="Location" onChange={ props.setLocation }/>
-          <input type="button" id="searchButton" value="Search" onClick={ props.search }/>
+          <input type="button" id="searchButton" onClick={ props.search }/>
       </section>
       <VenueDetails
         venueName = { props.venueName }

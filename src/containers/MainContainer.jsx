@@ -150,7 +150,9 @@ class MainContainer extends Component {
       home = 
       <div id="home-content">
         <div id="logo">
-          <h1><span id="Q">Queue</span></h1>
+          {/* <img id="logo-pic" src="https://kingendodontics.com/wp-content/uploads/2018/01/KingEndo_staff_icon.png"/> */}
+          <img id="logo-pic" src="https://image.flaticon.com/icons/png/512/876/876569.png"/>
+          <h1>Queue</h1>
         </div>
         <section id="home-page-search-bar">
           <input type="input" id="searchInput" placeholder="Business or Category" onChange={this.setSearchInput}/>

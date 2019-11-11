@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import CategoryContainer from './CategoryContainer.jsx';
+import VenueContainer from './VenueContainer.jsx';
 import debounce from "lodash.debounce";
 import axios from 'axios';
 
@@ -14,13 +15,15 @@ class MainContainer extends Component {
       // searchResults: [],
       waitTime: 0,
       venueId: '',
-      venueName: 'test',
+      venueName: '',
+      venueUrl: '',
+      venueImage: '',
+      venueLocation: '',
       latitude: '',
       longitude: '',
       homePage: true,
       categoryPage: false,
       venuePage: false,
-
       searchResults: [],
       current: 10,
       total: 50,
@@ -80,7 +83,7 @@ class MainContainer extends Component {
         const listOfBusinesses = [];
         console.log(parsedData.businesses.length)
         for (let i = 0; i < this.state.current; i += 1) {
-          listOfBusinesses.push({id: parsedData.businesses[i].id, name: parsedData.businesses[i].name});
+          listOfBusinesses.push({id: parsedData.businesses[i].id, name: parsedData.businesses[i].name, image: parsedData.businesses[i].image_url, location: parsedData.businesses[i].location});
         }
 
         // this.setState({ latitude: firstBusinessLatitude.toString(), longitude: firstBusinessLongitude.toString() })
@@ -119,15 +122,21 @@ class MainContainer extends Component {
     })
   }
   
-  selectVenue(id, name) {
+  selectVenue(id, name, url, image, location) {
     const venueId = id;
     const venueName = name;
+    const venueUrl = url;
+    const venueImage = image;
+    const venueLocation = location;
     this.setState({ 
       homePage: false,
       categoryPage: false,
       venuePage: true,
       venueId,
       venueName,
+      venueUrl,
+      venueImage,
+      venueLocation,
     })
   }
 
@@ -168,8 +177,13 @@ class MainContainer extends Component {
   if (this.state.venuePage) {
     venue = 
     <VenueContainer
-      setWaitTime = {this.setWaitTime}
-      addWaitTime = {this.addWaitTime}
+      venueId={this.state.venueId}
+      venueName={this.state.venueName}
+      venueUrl={this.state.venueUrl}
+      venueImage={this.state.venueImage}
+      venueLocation={this.state.venueLocation}
+      setWaitTime={this.setWaitTime}
+      addWaitTime={this.addWaitTime}
     />
   }
     

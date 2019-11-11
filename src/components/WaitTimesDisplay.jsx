@@ -7,6 +7,12 @@ class WaitTimesDisplay extends Component {
   
   componentDidMount() {
       // fetch request to display wait times
+      const waitTimeList = [];
+      fetch('/dbRouter/getWaitTimes')
+      .then(() => console.log('getWaitTime fetch request successful'))
+      .catch((err) => {
+        console.log(`${err}: getWaitTime func err when getting wait time`)
+      })
   }
 
 
@@ -18,7 +24,9 @@ class WaitTimesDisplay extends Component {
             <input type="button" onClick={this.props.addWaitTime} value="Add Wait Time"></input>
 
         {/* render wait times pulled from sql database */}
-  
+            <div>
+              {waitTimeList}
+            </div>
       </div>
      );
   }

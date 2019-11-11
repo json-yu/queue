@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import SearchDisplay from '../components/SearchDisplay.jsx';
 import Map from '../components/Map.jsx';
 import debounce from "lodash.debounce";
+import '../css/CategoryPage.css';
 
 class CategoryContainer extends Component {
   constructor(props) {
@@ -23,7 +24,6 @@ class CategoryContainer extends Component {
   }
 
   render() { 
-
     // render map and list of businessess from 
   let search = null;
   let searchDisplayResults = this.props.searchResults.map((element, i) => {

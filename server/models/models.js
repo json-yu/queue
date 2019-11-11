@@ -4,7 +4,7 @@ const PG_URI = process.env.PG_URI;
 
 
 const pool = new Pool({
-    connectionString: 'postgres://uihkvytp:W2m1NcE0skYtfstOkJtLAMnuyuV8daFi@salt.db.elephantsql.com:5432/uihkvytp'
+    connectionString: 'postgres://kwqwovjz:5KiuhVnbx4dXGxkmeXS-nJw1kE_V4twU@salt.db.elephantsql.com:5432/kwqwovjz'
 });
 
 module.exports = {

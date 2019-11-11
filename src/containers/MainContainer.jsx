@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CategoryContainer from './CategoryContainer.jsx';
 import VenueContainer from './VenueContainer.jsx';
+import debounce from "lodash.debounce";
 import axios from 'axios';
 
 class MainContainer extends Component {
@@ -10,10 +11,12 @@ class MainContainer extends Component {
     this.state = {
       searchInput: '',
       location: '',
-      searchResults: [{id: 'testID1', name: '85 C Bakery', url: "https://www.yelp.com/biz/hironori-craft-ramen-irvine-irvine?adjust_creative=H1bH90ZvaxqOkwtYtJapbA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=H1bH90ZvaxqOkwtYtJapbA",
-      image: "https://s3-media4.fl.yelpcdn.com/bphoto/D7UcJNaajaqXkQDJgey2ug/o.jpg", location: {address1: "2222 Michelson Dr", city: "Irvine", state: "CA", zip_code: "92612"}}, {id: 'testID2', name: '85 C Bakery', url: "https://www.yelp.com/biz/hironori-craft-ramen-irvine-irvine?adjust_creative=H1bH90ZvaxqOkwtYtJapbA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=H1bH90ZvaxqOkwtYtJapbA",
-      image: "https://s3-media4.fl.yelpcdn.com/bphoto/D7UcJNaajaqXkQDJgey2ug/o.jpg"}, {id: 'testID3', name: '85 C Bakery', url: "https://www.yelp.com/biz/hironori-craft-ramen-irvine-irvine?adjust_creative=H1bH90ZvaxqOkwtYtJapbA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=H1bH90ZvaxqOkwtYtJapbA",
-      image: "https://s3-media4.fl.yelpcdn.com/bphoto/D7UcJNaajaqXkQDJgey2ug/o.jpg"}],
+      // searchResults: [{id: 'testID1', name: '85 C Bakery', url: "https://www.yelp.com/biz/hironori-craft-ramen-irvine-irvine?adjust_creative=H1bH90ZvaxqOkwtYtJapbA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=H1bH90ZvaxqOkwtYtJapbA",
+      // image: "https://s3-media4.fl.yelpcdn.com/bphoto/D7UcJNaajaqXkQDJgey2ug/o.jpg", location: {address1: "2222 Michelson Dr", city: "Irvine", state: "CA", zip_code: "92612"}}, {id: 'testID2', name: '85 C Bakery', url: "https://www.yelp.com/biz/hironori-craft-ramen-irvine-irvine?adjust_creative=H1bH90ZvaxqOkwtYtJapbA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=H1bH90ZvaxqOkwtYtJapbA",
+      // image: "https://s3-media4.fl.yelpcdn.com/bphoto/D7UcJNaajaqXkQDJgey2ug/o.jpg"}, {id: 'testID3', name: '85 C Bakery', url: "https://www.yelp.com/biz/hironori-craft-ramen-irvine-irvine?adjust_creative=H1bH90ZvaxqOkwtYtJapbA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=H1bH90ZvaxqOkwtYtJapbA",
+      // image: "https://s3-media4.fl.yelpcdn.com/bphoto/D7UcJNaajaqXkQDJgey2ug/o.jpg"}],
+      // searchResults: [{id: 'test', name: 'hello'}, {id: '5', name: 'hello'}, {id: '6', name: 'hello'}],
+      // searchResults: [],
       waitTime: 0,
       venueId: '',
       venueName: '',
@@ -24,7 +27,10 @@ class MainContainer extends Component {
       longitude: '',
       homePage: true,
       categoryPage: false,
-      venuePage: false,      
+      venuePage: false,
+      searchResults: [],
+      current: 10,
+      total: 50,
     }
 
     this.setLocation = this.setLocation.bind(this);
@@ -33,6 +39,18 @@ class MainContainer extends Component {
     this.selectVenue = this.selectVenue.bind(this);
     this.setWaitTime = this.setWaitTime.bind(this);
     this.addWaitTime = this.addWaitTime.bind(this);
+
+    window.onscroll = debounce(() => {
+      this.search();
+
+      if (
+        window.innerHeight + document.documentElement.scrollTop
+        === document.documentElement.offsetHeight
+      ) {
+        // load function should be invoked here
+        // this.search();
+      }
+    });
   }
 
   setLocation(event) {
@@ -41,9 +59,12 @@ class MainContainer extends Component {
 
   setSearchInput(event) {
     this.setState({ searchInput: event.target.value });
+    console.log(this.state.searchResults)
   }
 
   search() {
+    if (this.state.current >= this.state.total) return;
+
     console.log('THIS STATE LOCATION : ', this.state.location);
     this.setState({ 
       homePage: false,
@@ -58,10 +79,27 @@ class MainContainer extends Component {
       .then(response => response.json())
       .then(data => {
         const parsedData = JSON.parse(data);
-        console.log(parsedData);
+        console.log('PARSEDDATA: ', parsedData);
+        console.log('introspecting the data: ', parsedData.businesses[0])
         const firstBusinessLatitude = parsedData.businesses[0].coordinates.latitude;
         const firstBusinessLongitude = parsedData.businesses[0].coordinates.longitude;
-        this.setState({ latitude: firstBusinessLatitude.toString(), longitude: firstBusinessLongitude.toString() })
+        
+        const listOfBusinesses = [];
+        console.log(parsedData.businesses.length)
+        for (let i = 0; i < this.state.current; i += 1) {
+          listOfBusinesses.push({id: parsedData.businesses[i].id, name: parsedData.businesses[i].name, image: parsedData.businesses[i].image_url, location: parsedData.businesses[i].location});
+        }
+
+        // this.setState({ latitude: firstBusinessLatitude.toString(), longitude: firstBusinessLongitude.toString() })
+
+        this.setState(state => {
+          return {
+            latitude: firstBusinessLatitude.toString(),
+            longitude: firstBusinessLongitude.toString(),
+            searchResults: listOfBusinesses,
+            current: state.current + 10
+          }
+        })
       })
   }
 
@@ -164,4 +202,3 @@ class MainContainer extends Component {
 }
 
 export default MainContainer;
-

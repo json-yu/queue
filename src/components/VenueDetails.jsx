@@ -1,7 +1,6 @@
 import React from 'react';
 
 const VenueDetails = (props) => {
-  console.log(props.venueLocation)
 
     return ( 
         <div>

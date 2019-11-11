@@ -6,8 +6,10 @@ dbController.addVenue = async (req, res, next) => {
     const { venueId, venueName } = req.body;
     try {
         const queryStr = `
-        INSERT INTO venues (VenueID, venue)
+        INSERT INTO Venues (VenueID, venue)
         VALUES ($1, $2)
+        ON CONFLICT (VenueID)
+        DO NOTHING
         `;
         // const params = [ req.body.venueId, req.body.venueName ];
         const result = await db.query(queryStr, [ venueId, venueName ]);

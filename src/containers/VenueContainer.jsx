@@ -6,11 +6,13 @@ const VenueContainer = (props) => {
   // render map and wait times
   return (
     <div>
+      <VenueDetails
+        venueName = { props.venueName }
+      />
       <WaitTimesDisplay 
         addWaitTime = { props.addWaitTime }
         setWaitTime = { props.setWaitTime }
       />
-      Venue Container
     </div>
   )
 }

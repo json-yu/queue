@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import CategoryContainer from './CategoryContainer.jsx';
-<<<<<<< HEAD
 import VenueContainer from './VenueContainer.jsx';
-=======
 import axios from 'axios';
->>>>>>> master
 
 class MainContainer extends Component {
   constructor(props) {
@@ -16,7 +13,7 @@ class MainContainer extends Component {
       searchResults: [{id: 'test', name: 'hello'}, {id: '5', name: 'hello'}, {id: '6', name: 'hello'}],
       waitTime: 0,
       venueId: '',
-      venueName: 'test',
+      venueName: '',
       latitude: '',
       longitude: '',
       homePage: true,
@@ -116,16 +113,6 @@ class MainContainer extends Component {
     if (this.state.categoryPage) {
       category = 
       <CategoryContainer 
-<<<<<<< HEAD
-      searchInput={this.state.searchInput}
-      location={this.state.location}
-      searchResults={this.state.searchResults}
-      waitTimes={this.state.waitTimes}
-      homePage={this.state.homePage}
-      categoryPage={this.state.categoryPage}
-      venuePage={this.state.venuePage}   
-      selectVenue={this.selectVenue}
-=======
         searchInput={this.state.searchInput}
         location={this.state.location}
         searchResults={this.state.searchResults}
@@ -136,7 +123,6 @@ class MainContainer extends Component {
         selectVenue={this.selectVenue}
         latitude={this.state.latitude}
         longitude={this.state.longitude}
->>>>>>> master
       />
     }
 
@@ -145,8 +131,10 @@ class MainContainer extends Component {
   if (this.state.venuePage) {
     venue = 
     <VenueContainer
-      setWaitTime = {this.setWaitTime}
-      addWaitTime = {this.addWaitTime}
+      venueId={this.state.venueId}
+      venueName={this.state.venueName}
+      setWaitTime={this.setWaitTime}
+      addWaitTime={this.addWaitTime}
     />
   }
     

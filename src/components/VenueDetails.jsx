@@ -1,9 +1,11 @@
 import React from 'react';
 
-const VenueDetails = () => {
+const VenueDetails = (props) => {
     return ( 
         <div>
-            
+            <div>
+            {props.venueName}
+            </div>
         </div>
      );
 }

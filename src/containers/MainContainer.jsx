@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import CategoryContainer from './CategoryContainer.jsx';
 import debounce from "lodash.debounce";
 import axios from 'axios';
+import VenueContainer from './VenueContainer.jsx'
 
 class MainContainer extends Component {
   constructor(props) {
@@ -33,17 +34,7 @@ class MainContainer extends Component {
     this.setWaitTime = this.setWaitTime.bind(this);
     this.addWaitTime = this.addWaitTime.bind(this);
 
-    window.onscroll = debounce(() => {
-      this.search();
-
-      if (
-        window.innerHeight + document.documentElement.scrollTop
-        === document.documentElement.offsetHeight
-      ) {
-        // load function should be invoked here
-        // this.search();
-      }
-    });
+  
   }
 
   setLocation(event) {
@@ -160,6 +151,7 @@ class MainContainer extends Component {
         selectVenue={this.selectVenue}
         latitude={this.state.latitude}
         longitude={this.state.longitude}
+        search={this.search}
       />
     }
 

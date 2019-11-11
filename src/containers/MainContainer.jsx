@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import CategoryContainer from './CategoryContainer.jsx';
-<<<<<<< HEAD
-import VenueContainer from './VenueContainer.jsx';
-=======
+import debounce from "lodash.debounce";
 import axios from 'axios';
->>>>>>> master
 
 class MainContainer extends Component {
   constructor(props) {
@@ -13,7 +10,8 @@ class MainContainer extends Component {
     this.state = {
       searchInput: '',
       location: '',
-      searchResults: [{id: 'test', name: 'hello'}, {id: '5', name: 'hello'}, {id: '6', name: 'hello'}],
+      // searchResults: [{id: 'test', name: 'hello'}, {id: '5', name: 'hello'}, {id: '6', name: 'hello'}],
+      // searchResults: [],
       waitTime: 0,
       venueId: '',
       venueName: 'test',
@@ -21,7 +19,11 @@ class MainContainer extends Component {
       longitude: '',
       homePage: true,
       categoryPage: false,
-      venuePage: false,      
+      venuePage: false,
+
+      searchResults: [],
+      current: 10,
+      total: 50,
     }
 
     this.setLocation = this.setLocation.bind(this);
@@ -30,6 +32,18 @@ class MainContainer extends Component {
     this.selectVenue = this.selectVenue.bind(this);
     this.setWaitTime = this.setWaitTime.bind(this);
     this.addWaitTime = this.addWaitTime.bind(this);
+
+    window.onscroll = debounce(() => {
+      this.search();
+
+      if (
+        window.innerHeight + document.documentElement.scrollTop
+        === document.documentElement.offsetHeight
+      ) {
+        // load function should be invoked here
+        // this.search();
+      }
+    });
   }
 
   setLocation(event) {
@@ -38,9 +52,12 @@ class MainContainer extends Component {
 
   setSearchInput(event) {
     this.setState({ searchInput: event.target.value });
+    console.log(this.state.searchResults)
   }
 
   search() {
+    if (this.state.current >= this.state.total) return;
+
     console.log('THIS STATE LOCATION : ', this.state.location);
     this.setState({ 
       homePage: false,
@@ -55,10 +72,27 @@ class MainContainer extends Component {
       .then(response => response.json())
       .then(data => {
         const parsedData = JSON.parse(data);
-        console.log(parsedData);
+        console.log('PARSEDDATA: ', parsedData);
+        console.log('introspecting the data: ', parsedData.businesses[0])
         const firstBusinessLatitude = parsedData.businesses[0].coordinates.latitude;
         const firstBusinessLongitude = parsedData.businesses[0].coordinates.longitude;
-        this.setState({ latitude: firstBusinessLatitude.toString(), longitude: firstBusinessLongitude.toString() })
+        
+        const listOfBusinesses = [];
+        console.log(parsedData.businesses.length)
+        for (let i = 0; i < this.state.current; i += 1) {
+          listOfBusinesses.push({id: parsedData.businesses[i].id, name: parsedData.businesses[i].name});
+        }
+
+        // this.setState({ latitude: firstBusinessLatitude.toString(), longitude: firstBusinessLongitude.toString() })
+
+        this.setState(state => {
+          return {
+            latitude: firstBusinessLatitude.toString(),
+            longitude: firstBusinessLongitude.toString(),
+            searchResults: listOfBusinesses,
+            current: state.current + 10
+          }
+        })
       })
   }
 
@@ -116,16 +150,6 @@ class MainContainer extends Component {
     if (this.state.categoryPage) {
       category = 
       <CategoryContainer 
-<<<<<<< HEAD
-      searchInput={this.state.searchInput}
-      location={this.state.location}
-      searchResults={this.state.searchResults}
-      waitTimes={this.state.waitTimes}
-      homePage={this.state.homePage}
-      categoryPage={this.state.categoryPage}
-      venuePage={this.state.venuePage}   
-      selectVenue={this.selectVenue}
-=======
         searchInput={this.state.searchInput}
         location={this.state.location}
         searchResults={this.state.searchResults}
@@ -136,7 +160,6 @@ class MainContainer extends Component {
         selectVenue={this.selectVenue}
         latitude={this.state.latitude}
         longitude={this.state.longitude}
->>>>>>> master
       />
     }
 
@@ -161,4 +184,3 @@ class MainContainer extends Component {
 }
 
 export default MainContainer;
-

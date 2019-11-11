@@ -23,12 +23,14 @@ apiController.yelp = (req, res, next) => {
   // console.log('REQ.BODY --> ', req.body);
   // console.log('in middleware func')
   const YELP_API = '0asdq3RZT2Kcg24r5KLnY49GRgND03gI53KjmnXTaFEsPoe8YaSyyhVNciXqh2GGLrV1i7X79sBWjkWw_NhhMeG9GSOOylFrRXxnFSZuLxQvDj-5bOzL1JsZ-UbGXXYx';
-  const ENDPOINT = 'https://api.yelp.com/v3/businesses/search';
+  // const ENDPOINT = 'https://api.yelp.com/v3/businesses/search';
 
   // Create a new yelpAPI object with your API key
   let yelp = new yelpAPI(YELP_API);
   
   // Set any parameters, if applicable (see API documentation for allowed params)
+  // let params = [{ location: req.body.location || res.locals.zipcode, limit: 15, offset: 10}];
+  console.log('in apiController.yelp')
   let params = [{ location: req.body.location || res.locals.zipcode, limit: 50}];
   
   // Call the endpoint

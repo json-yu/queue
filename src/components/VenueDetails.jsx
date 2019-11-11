@@ -7,12 +7,13 @@ const VenueDetails = (props) => {
             <div>
             {props.venueName}
             </div>
-              <img src={props.venueImage}/>
+              <img style={{height:"100px",width:"100px"}}src={props.venueImage}/>
             <div>
               {props.venueLocation.address1}
               {props.venueLocation.city}
               {props.venueLocation.state}
               {props.venueLocation.zip_code}
+              {props.venuePhone}
               {props.venueUrl}
             </div>
         </div>

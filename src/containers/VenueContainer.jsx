@@ -16,8 +16,11 @@ const VenueContainer = (props) => {
         venueUrl = { props.venueUrl }
         venueImage = { props.venueImage }
         venueLocation = { props.venueLocation }
+        venuePhone = { props.venuePhone }
       />
       <WaitTimesDisplay 
+        venueId = { props.venueId }
+        venueWaitTimeList = { props.venueWaitTimeList }
         addWaitTime = { props.addWaitTime }
         setWaitTime = { props.setWaitTime }
       />

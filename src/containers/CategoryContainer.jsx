@@ -37,9 +37,10 @@ class CategoryContainer extends Component {
         {element.location.city}
         {element.location.state}
         {element.location.zip_code}
+        {element.phone}
       </div>
       {/* // need to grab the unique id provided from the yelp api data search results that are saved in state. need to use it to save into our database */}
-      <button onClick={() => this.props.selectVenue(element.id, element.name, element.url, element.image, element.location)}>Select</button>
+      <button onClick={() => this.props.selectVenue(element.id, element.name, element.url, element.image, element.location, element.phone)}>Select</button>
     </li>
   })
 

@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import CategoryContainer from './CategoryContainer.jsx';
-<<<<<<< HEAD
-import VenueContainer from './VenueContainer.jsx';
-=======
-import axios from 'axios';
->>>>>>> master
+import '../css/LandingPage.css';
 
 class MainContainer extends Component {
   constructor(props) {
@@ -102,30 +98,23 @@ class MainContainer extends Component {
     let home = null;
     if (this.state.homePage) {
       home = 
-      <div>
-        <div>
-        Home Page
+      <div id="home-content">
+        <div id="logo">
+          <h1><span id="Q">Queue</span></h1>
         </div>
-        <input type="input" id="searchInput" placeholder="Business or Category" onChange={this.setSearchInput}/>
-        <input type="input" id="location" placeholder="Location" onChange={this.setLocation}/>
-        <input type="button" id="searchButton" value="Search" onClick={this.search}/>
+        <div className="inputs">
+          <input type="input" id="searchInput" placeholder="Business or Category" onChange={this.setSearchInput}/>
+          <input type="input" id="location" placeholder="Location" onChange={this.setLocation}/>
+          <input type="button" id="searchButton" onClick={this.search}/>
+        </div>
       </div>
+
     }
 
     let category = null;
     if (this.state.categoryPage) {
       category = 
       <CategoryContainer 
-<<<<<<< HEAD
-      searchInput={this.state.searchInput}
-      location={this.state.location}
-      searchResults={this.state.searchResults}
-      waitTimes={this.state.waitTimes}
-      homePage={this.state.homePage}
-      categoryPage={this.state.categoryPage}
-      venuePage={this.state.venuePage}   
-      selectVenue={this.selectVenue}
-=======
         searchInput={this.state.searchInput}
         location={this.state.location}
         searchResults={this.state.searchResults}
@@ -136,7 +125,6 @@ class MainContainer extends Component {
         selectVenue={this.selectVenue}
         latitude={this.state.latitude}
         longitude={this.state.longitude}
->>>>>>> master
       />
     }
 

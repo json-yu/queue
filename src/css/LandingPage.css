@@ -1,0 +1,68 @@
+:root {
+  font-size: 62.5%;
+  background: url('https://images.pexels.com/photos/1604200/pexels-photo-1604200.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-size: 1.6rem;
+  text-align: center;
+}
+
+#home-content {
+  margin-top: 5%;
+}
+
+h1 {
+  font-family: 'Varela Round', sans-serif;
+  font-size: 20rem;
+}
+
+#Q {
+  color: white;
+  padding: .3rem 3.5rem;
+  text-shadow: -4px 0 black, 0 4px black, 4px 0 black, 0 -4px black;
+}
+
+.inputs {
+  display: flex;
+  justify-content: center;
+}
+
+
+input {
+  padding: 2rem;
+  outline: none;
+  border: none;
+  border-radius: 40px;
+  margin: 1rem;
+  height: 5rem;
+  font-size: 2.2rem;
+}
+
+#searchInput {
+  width: 50rem;
+}
+
+#location {
+  width: 30rem;
+}
+
+#searchButton {
+  font-family: 'Varela Round', sans-serif;
+  border-radius: 30px;
+  width: 5rem;
+  background-image: url('https://static.thenounproject.com/png/102634-200.png');
+  background-size: 2.5rem 2.5rem;
+  background-repeat: no-repeat;
+  background-position: center;
+}

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import CategoryContainer from './CategoryContainer.jsx';
 import VenueContainer from './VenueContainer.jsx';
-import debounce from "lodash.debounce";
-import axios from 'axios';
 
 class MainContainer extends Component {
   constructor(props) {
@@ -35,18 +33,6 @@ class MainContainer extends Component {
     this.selectVenue = this.selectVenue.bind(this);
     this.setWaitTime = this.setWaitTime.bind(this);
     this.addWaitTime = this.addWaitTime.bind(this);
-
-    window.onscroll = debounce(() => {
-      this.search();
-
-      if (
-        window.innerHeight + document.documentElement.scrollTop
-        === document.documentElement.offsetHeight
-      ) {
-        // load function should be invoked here
-        // this.search();
-      }
-    });
   }
 
   setLocation(event) {
@@ -62,11 +48,7 @@ class MainContainer extends Component {
     if (this.state.current >= this.state.total) return;
 
     console.log('THIS STATE LOCATION : ', this.state.location);
-    this.setState({ 
-      homePage: false,
-      categoryPage: true,
-      venuePage: false,
-    })
+    
     fetch ('/api', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -83,7 +65,13 @@ class MainContainer extends Component {
         const listOfBusinesses = [];
         console.log(parsedData.businesses.length)
         for (let i = 0; i < this.state.current; i += 1) {
-          listOfBusinesses.push({id: parsedData.businesses[i].id, name: parsedData.businesses[i].name, image: parsedData.businesses[i].image_url, location: parsedData.businesses[i].location});
+          listOfBusinesses.push({
+            id: parsedData.businesses[i].id, 
+            name: parsedData.businesses[i].name, 
+            image: parsedData.businesses[i].image_url, 
+            location: parsedData.businesses[i].location,
+            category: parsedData.businesses[i].categories[0].title,
+          });
         }
 
         // this.setState({ latitude: firstBusinessLatitude.toString(), longitude: firstBusinessLongitude.toString() })
@@ -97,6 +85,12 @@ class MainContainer extends Component {
           }
         })
       })
+
+      this.setState({ 
+      homePage: false,
+      categoryPage: true,
+      venuePage: false,
+    })
   }
 
   setWaitTime(event) {
@@ -128,6 +122,7 @@ class MainContainer extends Component {
     const venueUrl = url;
     const venueImage = image;
     const venueLocation = location;
+    
     this.setState({ 
       homePage: false,
       categoryPage: false,
@@ -169,6 +164,7 @@ class MainContainer extends Component {
         selectVenue={this.selectVenue}
         latitude={this.state.latitude}
         longitude={this.state.longitude}
+        search={this.search}
       />
     }
 

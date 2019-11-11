@@ -9,9 +9,15 @@ const CategoryContainer = (props) => {
   let searchDisplayResults = props.searchResults.map((element, i) => {
     // console.log('search results', props.searchResults);
     return <li key = {i}>
-      {element.id}
+      {element.name}
       {/* // need to grab the unique id provided from the yelp api data search results that are saved in state. need to use it to save into our database */}
       <button onClick={() => props.selectVenue(element.id, element.name)}>Select</button>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
     </li>
   })
 
@@ -22,7 +28,8 @@ const CategoryContainer = (props) => {
       <SearchDisplay
         searchDisplayResults={searchDisplayResults}
       />
-      <Map latitude={props.latitude} longitude={props.longitude} />
+      {/* Temp disabled map */}
+      {/* <Map latitude={props.latitude} longitude={props.longitude} /> */}
     </div>
   }
 

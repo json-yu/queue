@@ -29,7 +29,7 @@ apiController.yelp = (req, res, next) => {
   let yelp = new yelpAPI(YELP_API);
   
   // Set any parameters, if applicable (see API documentation for allowed params)
-  let params = [{ location: req.body.location || res.locals.zipcode }];
+  let params = [{ location: req.body.location || res.locals.zipcode, limit: 50}];
   
   // Call the endpoint
   yelp.query('businesses/search', params)

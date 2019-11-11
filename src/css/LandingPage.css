@@ -44,7 +44,7 @@ h1 {
   color: white;
   text-shadow: -4px 0 black, 0 4px black, 4px 0 black, 0 -4px black;
   display: inline-block;
-  margin-left: 1.5rem;
+  margin-left: -2rem;
 }
 /* 
 #Q {

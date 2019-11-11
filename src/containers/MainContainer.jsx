@@ -26,7 +26,7 @@ class MainContainer extends Component {
       waitTime: 0,
 
       // components for infinite scrolling functionality
-      current: 15,
+      current: 25,
       total: 50,
       
       // components for conditional rendering of containers
@@ -53,7 +53,6 @@ class MainContainer extends Component {
     console.log(this.state.searchResults)
   }
   search() {
-    if (this.state.current >= this.state.total) return;
 
     console.log('THIS STATE LOCATION : ', this.state.location);
     
@@ -72,34 +71,40 @@ class MainContainer extends Component {
         
         const listOfBusinesses = [];
         console.log(parsedData.businesses.length)
-        for (let i = 0; i < this.state.current; i += 1) {
-          listOfBusinesses.push({
-            id: parsedData.businesses[i].id, 
-            name: parsedData.businesses[i].name, 
-            image: parsedData.businesses[i].image_url, 
-            location: parsedData.businesses[i].location,
-            category: parsedData.businesses[i].categories[0].title,
-          });
-        }
-
-        // this.setState({ latitude: firstBusinessLatitude.toString(), longitude: firstBusinessLongitude.toString() })
-
-        this.setState(state => {
-          return {
-            latitude: firstBusinessLatitude.toString(),
-            longitude: firstBusinessLongitude.toString(),
-            searchResults: listOfBusinesses,
-            current: state.current + 10
+        if (this.state.current <= 50) {
+          for (let i = 0; i < this.state.current; i += 1) {
+            console.log('LIST BUSINESSES -> ', listOfBusinesses)
+            listOfBusinesses.push({
+              id: parsedData.businesses[i].id, 
+              name: parsedData.businesses[i].name, 
+              image: parsedData.businesses[i].image_url, 
+              location: parsedData.businesses[i].location,
+              category: parsedData.businesses[i].categories[0].title,
+            });
           }
-        })
-      })
+  
+          // this.setState({ latitude: firstBusinessLatitude.toString(), longitude: firstBusinessLongitude.toString() })
+  
+          this.setState(state => {
+            return {
+              latitude: firstBusinessLatitude.toString(),
+              longitude: firstBusinessLongitude.toString(),
+              searchResults: listOfBusinesses,
+              current: state.current + 5,
 
-    this.setState({ 
-      homePage: false,
-      categoryPage: true,
-      venuePage: false,
-    })
+            }
+          })
+        }
+      })
+      this.setState({ 
+        homePage: false,
+        categoryPage: true,
+        venuePage: false,
+      })
+    
   }
+
+
 
   // specific venue selection functions
   selectVenue(id, name, url, image, location) {
@@ -184,7 +189,8 @@ class MainContainer extends Component {
 
         homePage={this.state.homePage}
         categoryPage={this.state.categoryPage}
-        venuePage={this.state.venuePage}   
+        venuePage={this.state.venuePage}
+        current={this.state.current}
       />
     }
 

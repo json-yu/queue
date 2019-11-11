@@ -42,7 +42,7 @@ dbController.addWaitTime = (req, res, next) => {
             });
         }
         res.locals.results = data;
-        console.log(res.locals.results);
+        // console.log(res.locals.results);
         return next();
     })
 
@@ -67,8 +67,25 @@ dbController.addWaitTime = (req, res, next) => {
     // }
 }
 
-dbController.getWaitTimes = (req, res, next) => {
-
+dbController.getWaitTimes = async (req, res, next) => {
+  const { venueId } = req.body;
+  try {
+      const queryStr = `
+      SELECT WaitTime
+      FROM waittimes
+      WHERE VenueId='${venueId}'
+      LIMIT 5
+      `;
+      const result = await db.query(queryStr);
+      res.locals.results = result.rows;
+      return next();
+  }
+  catch (err) {
+      next({
+          log: `dbController.getWaitTimes: ERROR: ${err}`,
+          message: { err: 'Error occurred in dbController.getWaitTimes.' }
+      });
+  }
 }
 
 module.exports = dbController;

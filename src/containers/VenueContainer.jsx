@@ -13,6 +13,7 @@ const VenueContainer = (props) => {
         venueLocation = { props.venueLocation }
       />
       <WaitTimesDisplay 
+        venueId = { props.venueId }
         addWaitTime = { props.addWaitTime }
         setWaitTime = { props.setWaitTime }
       />

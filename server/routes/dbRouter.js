@@ -2,9 +2,9 @@ const express = require('express');
 const dbController = require('../controllers/dbController.js');
 const router = express.Router();
 
-router.get('/getWaitTimes', dbController.getWaitTimes, (req, res) => {
+router.post('/getWaitTimes', dbController.getWaitTimes, (req, res) => {
     console.log('successfully retrieved wait times')
-    res.sendStatus(200);
+    res.status(200).json(res.locals.results);
 })
 
 router.post('/addWaitTime', dbController.addVenue, dbController.addWaitTime, (req, res) => {

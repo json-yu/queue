@@ -2,6 +2,32 @@ const db = require('../models/models.js');
 
 const dbController = {};
 
+dbController.createUser = (req, res, next) => {
+    const { username, password } = req.body;
+    console.log(username, password);
+    console.log('hit createUser controller')
+    const queryStr = `
+    INSERT INTO users (username, password)
+    VALUES ($1, $2)
+    `;
+
+    // db currently does not save two accounts with the same username, but does not notify second user that username is already taken
+    db.query(queryStr, [username, password], (err, data) => {
+        if (err) {
+            return next({
+                log: `dbController.createUser: ERROR: ${err}`,
+                message: { err: 'Error occurred in dbController.createUser.' }
+            });
+        }
+    })
+
+    return next();
+}
+
+dbController.verifyUser = (req, res, next) => {
+    
+}
+
 dbController.addVenue = async (req, res, next) => {
     const { venueId, venueName } = req.body;
     try {
@@ -28,6 +54,7 @@ dbController.addVenue = async (req, res, next) => {
 dbController.addWaitTime = (req, res, next) => {
     const { waitTime, venueId } = req.body;
 
+    // later, add a third column for createdby username
     const queryStr = `
         INSERT INTO WaitTimes (WaitTime, VenueID)
         VALUES ($1, $2)

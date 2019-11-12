@@ -26,8 +26,9 @@ class CategoryContainer extends Component {
   let search = null;
   let searchDisplayResults = this.props.searchResults.map((element, i) => {
     // console.log('search results', props.searchResults);
+    console.log('ELEMENT -> ', element);
     return <div id="list">
-          <button className="list-item" key = {i} onClick={() => this.props.selectVenue(element.id, element.name, element.url, element.image, element.location, element.phone)}>
+          <button className="list-item" key = {i} onClick={() => this.props.selectVenue(element.id, element.name, element.url, element.image, element.location, element.phone, element.latitude, element.longitude)}>
           <img src={`${element.image}`}/>
           {element.name}<br/>
           {element.category}<br/>

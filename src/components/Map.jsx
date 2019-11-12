@@ -4,7 +4,7 @@ import axios from 'axios';
 const Map = (props) => {
 
   return (
-    <div>
+    <div id="map">
       <iframe 
         width="500" 
         height="400" 

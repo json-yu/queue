@@ -4,16 +4,14 @@ const VenueDetails = (props) => {
 
     return ( 
         <div>
-            <div>
+            <h2>
             {props.venueName}
-            </div>
+            </h2>
               <img style={{height:"100px",width:"100px"}}src={props.venueImage}/>
             <div>
-              {props.venueLocation.address1}
-              {props.venueLocation.city}
-              {props.venueLocation.state}
-              {props.venueLocation.zip_code}
-              {props.venuePhone}
+              {props.venueLocation.address1}<br/>
+              {props.venueLocation.city}, {props.venueLocation.state} {props.venueLocation.zip_code}<br/>
+              {props.venuePhone}<br/>
               {props.venueUrl}
             </div>
         </div>

@@ -26,11 +26,27 @@ body {
   margin-top: 5%;
 }
 
+#logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#logo-pic {
+  height: 15rem;
+  width: auto;
+  filter: invert(100%);
+}
+
 h1 {
   font-family: 'Varela Round', sans-serif;
   font-size: 20rem;
+  color: white;
+  text-shadow: -4px 0 black, 0 4px black, 4px 0 black, 0 -4px black;
+  display: inline-block;
+  margin-left: -2rem;
 }
-
+/* 
 #Q {
   color: white;
   padding: .3rem 3.5rem;
@@ -38,7 +54,7 @@ h1 {
   /* background: linear-gradient(to right, #20f5e3 0%, #000 180%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent; */
-}
+/* } */ 
 
 #home-page-search-bar {
   display: flex;

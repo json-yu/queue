@@ -29,10 +29,12 @@ const VenueContainer = (props) => {
             setWaitTime = { props.setWaitTime }
           />
         </div>
+
         <div id="map">
           <iframe 
             width="500" 
             height="400" 
+            // #19 before ${props.venueLatitude} in src link specifies zoom (smaller number = less zoom)
             src={`https://api.maptiler.com/maps/basic/?key=OeKji8TvwQYbzy8G5Pda#19/${props.venueLatitude}/${props.venueLongitude}/`}>
           </iframe>
         </div>

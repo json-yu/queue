@@ -1,4 +1,5 @@
 :root {
+  /* font-size 62.5% makes 1rem = 10px, rem used for dyanmic sizing */
   font-size: 62.5%;
   height: 100%;
   width: 100%;

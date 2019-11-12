@@ -79,10 +79,12 @@ class MainContainer extends Component {
   setLocation(event) {
     this.setState({ location: event.target.value });
   }
+
   setSearchInput(event) {
     this.setState({ searchInput: event.target.value });
     // console.log(this.state.searchResults)
   }
+
   search() {
     // console.log('THIS STATE LOCATION : ', this.state.location);
     fetch ('/api', {
@@ -95,6 +97,8 @@ class MainContainer extends Component {
         const parsedData = JSON.parse(data);
         // console.log('PARSEDDATA: ', parsedData);
         // console.log('introspecting the data: ', parsedData.businesses[0])
+
+        // Coordinates used for map rendered in Category Container (List Page)
         const firstBusinessLatitude = parsedData.businesses[0].coordinates.latitude;
         const firstBusinessLongitude = parsedData.businesses[0].coordinates.longitude;
         
@@ -214,7 +218,6 @@ class MainContainer extends Component {
         {/* // uncomment to work on login and signup functionalities
         <button onClick={this.loginButton}>Login</button> */}
         <div id="logo">
-          {/* <img id="logo-pic" src="https://kingendodontics.com/wp-content/uploads/2018/01/KingEndo_staff_icon.png"/> */}
           <img id="logo-pic" src="https://image.flaticon.com/icons/png/512/876/876569.png"/>
           <h1>Queue</h1>
         </div>

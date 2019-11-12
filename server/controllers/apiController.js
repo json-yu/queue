@@ -4,6 +4,7 @@ const axios = require('axios');
 
 const apiController = {};
 
+// gets the current location of the client 
 apiController.geolocation = (req, res, next) => {
   const GEO_API = '2f3c481863d2833649b281ba9983b66e';
   
@@ -30,6 +31,7 @@ apiController.yelp = (req, res, next) => {
   
   // Set any parameters, if applicable (see API documentation for allowed params)
   // let params = [{ location: req.body.location || res.locals.zipcode, limit: 15, offset: 10}];
+  // for { location: req.body.location || res.locals.zipcode } --> will use the location that was input into the Location input field, if nothing input then will use current location of the client
   let params = [{ term: req.body.searchInput }, { location: req.body.location || res.locals.zipcode, limit: 50}];
   
   // Call the endpoint

@@ -22,7 +22,7 @@ class CategoryContainer extends Component {
   }
 
   render() { 
-    // render map and list of businessess from 
+    // render map and list of businessess from searchResults arr in the state
   let search = null;
   let searchDisplayResults = this.props.searchResults.map((element, i) => {
     // console.log('search results', props.searchResults);

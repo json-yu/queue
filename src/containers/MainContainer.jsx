@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import '../css/LandingPage.css';
 import CategoryContainer from './CategoryContainer.jsx';
 import VenueContainer from './VenueContainer.jsx';
+import LoginPage from '../components/LoginPage.jsx';
+import SignUpPage from '../components/SignUpPage.jsx';
 
 class MainContainer extends Component {
   constructor(props) {
@@ -34,10 +36,15 @@ class MainContainer extends Component {
       total: 50,
       
       // components for conditional rendering of containers
+      loginPage: false,
+      signupPage: false,
       homePage: true,
       categoryPage: false,
       venuePage: false,
     }
+
+    this.loginButton = this.loginButton.bind(this);
+    this.signupButton = this.signupButton.bind(this);
 
     this.setLocation = this.setLocation.bind(this);
     this.setSearchInput = this.setSearchInput.bind(this);
@@ -46,6 +53,26 @@ class MainContainer extends Component {
     this.selectVenue = this.selectVenue.bind(this);
     this.setWaitTime = this.setWaitTime.bind(this);
     this.addWaitTime = this.addWaitTime.bind(this);
+  }
+
+  // functions used for login and signup
+  loginButton() {
+    this.setState({
+      loginPage: true,
+      signupPage: false,
+      homePage: false,
+      categoryPage: false,
+      venuePage: false,
+    })    
+  }
+  signupButton() {
+    this.setState({
+      loginPage: false,
+      signupPage: true,
+      homePage: false,
+      categoryPage: false,
+      venuePage: false,
+    })
   }
 
   // functions used for search bar
@@ -100,11 +127,13 @@ class MainContainer extends Component {
           })
         }
       })
-      this.setState({ 
+      this.setState({
+        loginPage: false,
+        signupPage: false,
         homePage: false,
         categoryPage: true,
         venuePage: false,
-      })
+      })    
     
   }
 
@@ -120,6 +149,8 @@ class MainContainer extends Component {
     const venueLongitude = longitude;
 
     this.setState({ 
+      loginPage: false,
+      signupPage: false,
       homePage: false,
       categoryPage: false,
       venuePage: true,
@@ -156,12 +187,32 @@ class MainContainer extends Component {
   }
 
   render() {
+    // conditional rendering for the login page
+    let login = null;
+    if (this.state.loginPage) {
+      login = 
+        <LoginPage 
+          signupButton = {this.signupButton}
+        />
+    }
+    
+    // conditional rendering for the signup page
+    let signup = null;
+    if (this.state.signupPage) {
+      signup = 
+        <SignUpPage 
+          loginButton={this.loginButton}
+        />
+    }
+
     // conditional rendering for the homepage; default true (shows first)
     let home = null;
     if (this.state.homePage) {
       document.body.style.background = "url('https://images.pexels.com/photos/1604200/pexels-photo-1604200.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260')";
       home = 
       <div id="home-content">
+        {/* // uncomment to work on login and signup functionalities
+        <button onClick={this.loginButton}>Login</button> */}
         <div id="logo">
           {/* <img id="logo-pic" src="https://kingendodontics.com/wp-content/uploads/2018/01/KingEndo_staff_icon.png"/> */}
           <img id="logo-pic" src="https://image.flaticon.com/icons/png/512/876/876569.png"/>
@@ -230,18 +281,16 @@ class MainContainer extends Component {
       venueLongitude={this.state.venueLongitude}
       setWaitTime={this.setWaitTime}
       addWaitTime={this.addWaitTime}
-
-      homePage={this.state.homePage}
-      categoryPage={this.state.categoryPage}
-      venuePage={this.state.venuePage} 
     />
   }
     
     return (
       <div>
-      {home}
-      {category}
-      {venue}
+        {login}
+        {signup}
+        {home}
+        {category}
+        {venue}
       </div>
     )
   }

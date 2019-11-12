@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import CategoryContainer from './CategoryContainer.jsx';
 import '../css/LandingPage.css';
+import CategoryContainer from './CategoryContainer.jsx';
 import VenueContainer from './VenueContainer.jsx';
 
 class MainContainer extends Component {
@@ -8,12 +8,12 @@ class MainContainer extends Component {
     super(props)
 
     this.state = {
-      // stateful components for search bar and results
+      // stateful components used for search bar and results
       location: '',
       searchInput: '',
       searchResults: [],
       
-      // stateful components for map display
+      // components used for map display
       latitude: '',
       longitude: '',
 
@@ -46,36 +46,34 @@ class MainContainer extends Component {
     this.addWaitTime = this.addWaitTime.bind(this);
   }
 
-  // search bar functions
+  // functions used for search bar
   setLocation(event) {
     this.setState({ location: event.target.value });
   }
   setSearchInput(event) {
     this.setState({ searchInput: event.target.value });
-    console.log(this.state.searchResults)
+    // console.log(this.state.searchResults)
   }
   search() {
-
-    console.log('THIS STATE LOCATION : ', this.state.location);
-    
+    // console.log('THIS STATE LOCATION : ', this.state.location);
     fetch ('/api', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({location: this.state.location})
+      body: JSON.stringify({searchInput: this.state.searchInput, location: this.state.location})
     })
       .then(response => response.json())  
       .then(data => {
         const parsedData = JSON.parse(data);
-        console.log('PARSEDDATA: ', parsedData);
-        console.log('introspecting the data: ', parsedData.businesses[0])
+        // console.log('PARSEDDATA: ', parsedData);
+        // console.log('introspecting the data: ', parsedData.businesses[0])
         const firstBusinessLatitude = parsedData.businesses[0].coordinates.latitude;
         const firstBusinessLongitude = parsedData.businesses[0].coordinates.longitude;
         
         const listOfBusinesses = [];
-        console.log(parsedData.businesses.length)
+        // console.log(parsedData.businesses.length)
         if (this.state.current <= 50) {
           for (let i = 0; i < this.state.current; i += 1) {
-            console.log('LIST BUSINESSES -> ', listOfBusinesses)
+            // console.log('LIST BUSINESSES -> ', listOfBusinesses)
             listOfBusinesses.push({
               id: parsedData.businesses[i].id, 
               name: parsedData.businesses[i].name, 
@@ -106,9 +104,7 @@ class MainContainer extends Component {
     
   }
 
-
-
-  // specific venue selection functions
+  // functions used for to select a specific venue on the category page to display on the venue page
   selectVenue(id, name, url, image, location, phone) {
     const venueId = id;
     const venueName = name;
@@ -133,7 +129,7 @@ class MainContainer extends Component {
     this.setState({ waitTime: event.target.value })
   }
   addWaitTime() {
-    // create body from the things we've saved in state through the setwaittime and from selecting a specific venue
+    // create body from the things we've saved in state through the setwaittime and selectvenue func
     const body = {
       waitTime: this.state.waitTime,
       venueId: this.state.venueId,
@@ -147,7 +143,7 @@ class MainContainer extends Component {
     })
     .then(() => console.log('addwaittime fetch request successful'))
     .catch((err) => {
-      console.log(`${err}: addWaitTime func err when adding wait time`)
+      console.log(`${err}: addWaitTime function error when adding wait time`)
     })
   }
 
@@ -198,7 +194,7 @@ class MainContainer extends Component {
       />
     }
 
-    // conditional rendering for the vendor page
+    // conditional rendering for the venue page
   let venue = null;
   if (this.state.venuePage) {
     venue = 

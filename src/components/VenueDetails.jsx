@@ -7,8 +7,8 @@ const VenueDetails = (props) => {
             <h2>
             {props.venueName}
             </h2>
-              <img style={{height:"100px",width:"100px"}}src={props.venueImage}/>
-            <div>
+              <img className="specific-venue-image" src={props.venueImage}/>
+            <div id="specific-venue-details">
               {props.venueLocation.address1}<br/>
               {props.venueLocation.city}, {props.venueLocation.state} {props.venueLocation.zip_code}<br/>
               {props.venuePhone}<br/>

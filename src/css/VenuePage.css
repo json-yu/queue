@@ -44,10 +44,15 @@ h2 {
   font-size: 6rem;
 }
 
-img {
-  
+.specific-venue-image {
+  height: 20rem;
+  width: auto;
 }
 
 #map {
   margin-left: 1rem;
+}
+
+#specific-venue-details {
+  font-size: 2rem;
 }

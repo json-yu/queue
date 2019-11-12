@@ -98,7 +98,7 @@ dbController.getWaitTimes = async (req, res, next) => {
   const { venueId } = req.body;
   try {
       const queryStr = `
-      SELECT WaitTime
+      SELECT WaitTime, TimeStamp
       FROM waittimes
       WHERE VenueId='${venueId}'
       ORDER BY WaitTimeId DESC

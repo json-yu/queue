@@ -26,6 +26,8 @@ class MainContainer extends Component {
       venueImage: '',
       venueLocation: '',
       venuePhone: '',
+      venueLatitude: '',
+      venueLongitude: '',
       waitTime: 0,
       venueWaitTimeList: [],
 
@@ -107,6 +109,8 @@ class MainContainer extends Component {
               image: parsedData.businesses[i].image_url, 
               location: parsedData.businesses[i].location,
               category: parsedData.businesses[i].categories[0].title,
+              latitude: parsedData.businesses[i].coordinates.latitude,
+              longitude: parsedData.businesses[i].coordinates.longitude
             });
           }
   
@@ -134,13 +138,15 @@ class MainContainer extends Component {
   }
 
   // functions used for to select a specific venue on the category page to display on the venue page
-  selectVenue(id, name, url, image, location, phone) {
+  selectVenue(id, name, url, image, location, phone, latitude, longitude) {
     const venueId = id;
     const venueName = name;
     const venueUrl = url;
     const venueImage = image;
     const venueLocation = location;
     const venuePhone = phone;
+    const venueLatitude = latitude;
+    const venueLongitude = longitude;
 
     this.setState({ 
       loginPage: false,
@@ -154,7 +160,8 @@ class MainContainer extends Component {
       venueImage,
       venueLocation,
       venuePhone,
-      searchResults: [],
+      venueLatitude,
+      venueLongitude
     })
   }
   setWaitTime(event) {
@@ -207,7 +214,9 @@ class MainContainer extends Component {
         {/* // uncomment to work on login and signup functionalities
         <button onClick={this.loginButton}>Login</button> */}
         <div id="logo">
-          <h1><span id="Q">Queue</span></h1>
+          {/* <img id="logo-pic" src="https://kingendodontics.com/wp-content/uploads/2018/01/KingEndo_staff_icon.png"/> */}
+          <img id="logo-pic" src="https://image.flaticon.com/icons/png/512/876/876569.png"/>
+          <h1>Queue</h1>
         </div>
         <section id="home-page-search-bar">
           <input type="input" id="searchInput" placeholder="Business or Category" onChange={this.setSearchInput}/>
@@ -268,6 +277,8 @@ class MainContainer extends Component {
       venueLocation={this.state.venueLocation}
       venuePhone={this.state.venuePhone}
       venueWaitTimeList={this.state.venueWaitTimeList}
+      venueLatitude={this.state.venueLatitude}
+      venueLongitude={this.state.venueLongitude}
       setWaitTime={this.setWaitTime}
       addWaitTime={this.addWaitTime}
     />
